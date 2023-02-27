@@ -39,7 +39,7 @@ module "aws_compute" {
   source        = "./Compute/AWS_Compute"
   vpc_id        = module.aws_network.vpc_id
   ami_id        = var.ami_id
-  aws_subnet_id = module.aws_network.aws_subnet_id[1]
+  aws_subnet_id = module.aws_network.aws_subnet_id
   aws_pub_key   = var.pub_key
   aws_sg_ids    = module.aws_network.aws_sg_ids
   userData_path = "${path.root}/userData.sh"

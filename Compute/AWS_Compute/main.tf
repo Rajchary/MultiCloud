@@ -23,7 +23,7 @@ resource "aws_launch_template" "hubble_app_lt" {
   image_id               = var.ami_id
   vpc_security_group_ids = [var.aws_sg_ids.sts_sg, var.aws_sg_ids.midtier_sg]
   user_data              = filebase64(var.userData_path)
-
+  key_name               = aws_key_pair.hubble_aws_keypair.id
   tag_specifications {
     resource_type = "instance"
     tags = {
@@ -37,9 +37,9 @@ resource "aws_launch_template" "hubble_app_lt" {
 
 resource "aws_autoscaling_group" "hubble_asg" {
   name                = "Hubble_ASG"
-  vpc_zone_identifier = [var.aws_subnet_id]
-  desired_capacity    = 1
-  max_size            = 1
+  vpc_zone_identifier = var.aws_subnet_id
+  desired_capacity    = 2
+  max_size            = 2
   min_size            = 1
   target_group_arns   = [aws_lb_target_group.hubble_tg.arn]
 
@@ -55,7 +55,7 @@ resource "aws_autoscaling_group" "hubble_asg" {
 
 resource "aws_lb" "hubble_alb" {
   name            = "hubble-alb"
-  subnets         = [var.aws_subnet_id]
+  subnets         = var.aws_subnet_id
   security_groups = [var.aws_sg_ids.sts_sg, var.aws_sg_ids.frontier_sg]
   idle_timeout    = 400
 }

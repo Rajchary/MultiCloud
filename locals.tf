@@ -62,6 +62,17 @@ locals {
           source_address_prefix      = var.aws_subnet_cidrs[1]
           destination_address_prefix = "*"
         }
+        icmp = {
+          name                       = "DenyAnyCustomAnyInbound"
+          priority                   = 120
+          direction                  = "Inbound"
+          access                     = "Deny"
+          protocol                   = "*"
+          source_port_range          = "*"
+          destination_port_range     = "*"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+        }
       }
     }
   }
