@@ -46,7 +46,7 @@ variable "vpc_cidr" {
 }
 
 variable "aws_subnet_names" {
-  default     = "Hubble_AWS_Subnet"
+  default     = ["Hubble_AWS_Frontier_Subnet","Hubble_AWS_Midtier_Subnet"]
   description = "Names of AWS subnets"
 }
 

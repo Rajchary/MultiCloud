@@ -9,5 +9,5 @@ output "route_table_id" {
 }
 
 output "aws_subnet_id" {
-  value = aws_subnet.hubble_subnet.id
+  value = aws_subnet.hubble_subnet.*.id
 }

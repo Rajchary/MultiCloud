@@ -15,12 +15,13 @@ resource "aws_vpc" "hubble_aws_vpc" {
 }
 
 resource "aws_subnet" "hubble_subnet" {
+  count = length(var.aws_subnet_cidrs)
   vpc_id                  = aws_vpc.hubble_aws_vpc.id
   map_public_ip_on_launch = true
-  cidr_block              = var.aws_subnet_cidrs[0]
+  cidr_block              = var.aws_subnet_cidrs[count.index]
 
   tags = {
-    "Name" = var.aws_subnet_names
+    "Name" = var.aws_subnet_names[count.index]
   }
 }
 
@@ -39,7 +40,8 @@ resource "aws_route_table" "hubble_rt" {
 }
 
 resource "aws_route_table_association" "hubble_rt_assc" {
-  subnet_id      = aws_subnet.hubble_subnet.id
+  count = length(var.aws_subnet_cidrs)
+  subnet_id      = aws_subnet.hubble_subnet.*.id[count.index]
   route_table_id = aws_route_table.hubble_rt.id
 }
 
