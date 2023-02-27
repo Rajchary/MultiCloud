@@ -1,6 +1,6 @@
 
-output "aws_vm_ip" {
-  value = module.aws_compute.hubble_aws_instance_ip
+output "alb_dns" {
+  value = module.aws_compute.alb_dns
 }
 
 output "azure_vm_ip" {

@@ -11,3 +11,4 @@ variable "azure_subnet_names" {}
 
 variable "azure_snet_count" {}
 variable "vpc_cidr" {}
+variable "azure_sg_data" {}

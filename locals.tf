@@ -19,6 +19,19 @@ locals {
       }
 
     }
+
+    frontier_sg = {
+      name        = "AWS_FrontTier_SG"
+      description = "Secuirty group to handle frontier application"
+      ingress = {
+        http = {
+          from       = 80
+          to         = 80
+          protocol   = "tcp"
+          cidr_block = ["0.0.0.0/0"]
+        }
+      }
+    }
   }
 
   azure_nsg = {
@@ -46,7 +59,18 @@ locals {
           protocol                   = "Icmp"
           source_port_range          = "*"
           destination_port_range     = "*"
-          source_address_prefix      = var.vnet_cidr_block[0]
+          source_address_prefix      = var.aws_subnet_cidrs[1]
+          destination_address_prefix = "*"
+        }
+        icmp = {
+          name                       = "DenyAnyCustomAnyInbound"
+          priority                   = 120
+          direction                  = "Inbound"
+          access                     = "Deny"
+          protocol                   = "*"
+          source_port_range          = "*"
+          destination_port_range     = "*"
+          source_address_prefix      = "*"
           destination_address_prefix = "*"
         }
       }

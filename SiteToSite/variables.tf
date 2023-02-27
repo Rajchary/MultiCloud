@@ -10,5 +10,3 @@ variable "vpc_cidr" {}
 variable "route_table_id" {}
 variable "resource_rg_name" {}
 variable "resource_rg_location" {}
-variable "aws_sg_data" {}
-variable "azure_sg_data" {}

@@ -12,3 +12,7 @@ output "azure_subnet_id" {
 output "azure_gw_subnet_id" {
   value = azurerm_subnet.hubble_subnet[1].id
 }
+
+output "azure_nsg_id" {
+  value = azurerm_network_security_group.hubble_sts_nsg.id
+}
