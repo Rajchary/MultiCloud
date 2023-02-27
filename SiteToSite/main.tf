@@ -40,27 +40,7 @@ resource "aws_vpn_connection_route" "default" {
   destination_cidr_block = var.azure_subnet_cidr
 }
 
-resource "aws_security_group" "hubble_aws_sts_sg" {
-  name        = var.aws_sg_data.name
-  description = var.aws_sg_data.description
-  vpc_id      = var.vpc_id
-  dynamic "ingress" {
-    for_each = var.aws_sg_data.ingress
-    content {
-      from_port   = ingress.value.from
-      to_port     = ingress.value.to
-      protocol    = ingress.value.protocol
-      cidr_blocks = ingress.value.cidr_block
-    }
-  }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
 
 #================================> Azure Site To Site Resources  <=========================================
 
@@ -70,7 +50,7 @@ resource "azurerm_public_ip" "hubble_sts_pip" {
   location            = var.resource_rg_location
   resource_group_name = var.resource_rg_name
   allocation_method   = "Static"
-  sku = "Standard"
+  sku                 = "Standard"
 }
 
 resource "azurerm_virtual_network_gateway" "hubble_sts_azure_vnet_gw" {
@@ -115,23 +95,3 @@ resource "azurerm_virtual_network_gateway_connection" "hubble_vngw_conn" {
   shared_key                 = aws_vpn_connection.hubble_sts_vpn.tunnel1_preshared_key
 }
 
-resource "azurerm_network_security_group" "hubble_sts_nsg" {
-  name                = var.azure_sg_data.name
-  location            = var.resource_rg_location
-  resource_group_name = var.resource_rg_name
-
-  dynamic "security_rule" {
-    for_each = var.azure_sg_data.security_rule
-    content {
-      name                       = security_rule.value.name
-      priority                   = security_rule.value.priority
-      direction                  = security_rule.value.direction
-      access                     = security_rule.value.access
-      protocol                   = security_rule.value.protocol
-      source_port_range          = security_rule.value.source_port_range
-      destination_port_range     = security_rule.value.destination_port_range
-      source_address_prefix      = security_rule.value.source_address_prefix
-      destination_address_prefix = security_rule.value.destination_address_prefix
-    }
-  }
-}
