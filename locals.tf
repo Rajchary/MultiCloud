@@ -62,7 +62,7 @@ locals {
           source_address_prefix      = var.aws_subnet_cidrs[1]
           destination_address_prefix = "*"
         }
-        icmp = {
+        all = {
           name                       = "DenyAnyCustomAnyInbound"
           priority                   = 120
           direction                  = "Inbound"
