@@ -62,3 +62,7 @@ variable "ami_id" {
 variable "pub_key" {
   description = "Public key for AWS instances"
 }
+
+variable "aws_subnet_azs" {
+  default = ["us-east-1a", "us-east-1c"]
+}

@@ -19,7 +19,7 @@ resource "aws_subnet" "hubble_subnet" {
   vpc_id                  = aws_vpc.hubble_aws_vpc.id
   map_public_ip_on_launch = true
   cidr_block              = var.aws_subnet_cidrs[count.index]
-
+  availability_zone       = var.aws_subnet_azs[count.index]
   tags = {
     "Name" = var.aws_subnet_names[count.index]
   }
