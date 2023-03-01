@@ -20,6 +20,7 @@ module "aws_network" {
   aws_subnet_cidrs = var.aws_subnet_cidrs
   aws_subnet_names = var.aws_subnet_names
   aws_sg_data      = local.aws_security_groups
+  aws_subnet_azs   = var.aws_subnet_azs
 }
 
 module "site_to_site" {
