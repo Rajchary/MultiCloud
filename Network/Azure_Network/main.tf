@@ -1,5 +1,5 @@
 
-#===========================>  Azure Network main.tf  <================================
+#===========================>  Azure Network main.tf  <==================================================
 
 data "azurerm_resource_group" "resource_rg" {
   name = var.resource_rg_name

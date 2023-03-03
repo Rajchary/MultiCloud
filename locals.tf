@@ -1,3 +1,6 @@
+
+#==================================>  Root locals.tf  <=============================================
+
 locals {
   aws_security_groups = {
     site_to_site_sg = {
