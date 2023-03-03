@@ -1,4 +1,6 @@
 
+#===========================================> Azure_Network variables.tf <==================================
+
 variable "resource_rg_name" {}
 
 variable "vnet_cidr_block" {}

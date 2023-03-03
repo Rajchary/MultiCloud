@@ -1,4 +1,6 @@
 
+#=========================================> Azure_Compute main.tf <=====================================
+
 resource "azurerm_public_ip" "vm_pip" {
   name                = "Hubble_VM_PIP"
   location            = var.resource_group_location
